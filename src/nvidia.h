@@ -19,9 +19,7 @@ public:
             nvidia_id = "";
         }
     }
-    ~nvidia()
-    {
-    }
+    ~nvidia() = default;
 
     void print_proc_power()
     {

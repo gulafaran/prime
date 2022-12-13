@@ -5,7 +5,7 @@
 #include <vulkan/vulkan.h>
 
 #include "argvparse.h"
-#include "envvar.h"
+#include "configparse.h"
 #include "nvidia.h"
 #include "opengl.h"
 #include "vulkan.h"
@@ -18,7 +18,7 @@ void print_help()
     std::cout << "  -e, --print-env   print env vars that will be used." << std::endl;
     std::cout << "  -p, --power       print state and power management info about the cards."
               << std::endl;
-    std::cout << "  -c, --check       check devices that will be used in opengl/vulkan."
+    std::cout << "  -d, --devices     check devices that will be used in opengl/vulkan."
               << std::endl
               << std::endl;
     std::cout << "usage: prime <command>" << std::endl;
@@ -26,38 +26,6 @@ void print_help()
     std::cout
         << "  prime glxgears    will run glxgears with set environment variables to run on dgpu."
         << std::endl;
-}
-
-void run_cmd_on_dgpu(int argc, char* argv[])
-{
-    std::string cmd;
-    for (int i = 1; i < argc; i++) {
-        cmd += argv[i];
-        cmd += " ";
-    }
-
-    if (!cmd.empty()) {
-        auto status = system(cmd.c_str());
-        if (status < 0) {
-            std::cerr << "error: " << strerror(errno) << std::endl;
-            exit(1);
-        } else {
-            if (WIFEXITED(status)) {
-                exit(status);
-            } else {
-                std::cerr << "error: program exited abnormaly" << std::endl;
-                exit(1);
-            }
-        }
-    }
-    exit(1);
-}
-
-void print_power()
-{
-    auto nv = prime::nvidia();
-    nv.print_proc_power();
-    nv.print_sys_control();
 }
 
 void check_devices()
@@ -96,10 +64,15 @@ int main(int argc, char* argv[])
         exit(1);
     }
 
-    prime::set_env_vars();
+    auto config = prime::configparse(prime::get_xdg_config() + "/prime", "prime.cfg");
+    auto cfg_map = config.get_config_map();
+
+    for (auto const& [key, val] : cfg_map) {
+        prime::set_env_var(key, val, 1);
+    }
 
     if (argc >= 2 && !prime::str_starts_with(std::string(argv[1]), "-")) {
-        run_cmd_on_dgpu(argc, argv);
+        prime::run_cmd(argc, argv);
     }
 
     auto argv_parse = prime::argvparse(argc, argv);
@@ -107,10 +80,14 @@ int main(int argc, char* argv[])
     if (argv_parse.find_argument("--help") || argv_parse.find_argument("-h")) {
         print_help();
     } else if (argv_parse.find_argument("--print-env") || argv_parse.find_argument("-e")) {
-        prime::print_env_vars();
+        for (auto const& [key, val] : cfg_map) {
+            prime::print_env_var(key);
+        }
     } else if (argv_parse.find_argument("--power") || argv_parse.find_argument("-p")) {
-        print_power();
-    } else if (argv_parse.find_argument("--check") || argv_parse.find_argument("-c")) {
+        auto nv = prime::nvidia();
+        nv.print_proc_power();
+        nv.print_sys_control();
+    } else if (argv_parse.find_argument("--devices") || argv_parse.find_argument("-d")) {
         check_devices();
     }
 
