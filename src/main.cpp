@@ -19,6 +19,8 @@ void print_help()
     std::cout << "  -p, --power       print state and power management info about the cards."
               << std::endl;
     std::cout << "  -d, --devices     check devices that will be used in opengl/vulkan."
+              << std::endl;
+    std::cout << "  -c, --create      create local config template that will be used when running prime."
               << std::endl
               << std::endl;
     std::cout << "usage: prime <command>" << std::endl;
@@ -80,6 +82,9 @@ int main(int argc, char* argv[])
     if (argv_parse.find_argument("--help") || argv_parse.find_argument("-h")) {
         print_help();
     } else if (argv_parse.find_argument("--print-env") || argv_parse.find_argument("-e")) {
+        if(cfg_map.empty()) {
+            std::cerr << "error: no environment variables will be used." << std::endl;
+        }
         for (auto const& [key, val] : cfg_map) {
             prime::print_env_var(key);
         }
@@ -89,6 +94,9 @@ int main(int argc, char* argv[])
         nv.print_sys_control();
     } else if (argv_parse.find_argument("--devices") || argv_parse.find_argument("-d")) {
         check_devices();
+    }
+    else if (argv_parse.find_argument("--create") || argv_parse.find_argument("-c")) {
+        config.create_template_config();
     }
 
     if (argv_parse.argv().size() >= 1 && !argv_parse.has_matched_argument()) {
