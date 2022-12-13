@@ -10,6 +10,8 @@
 #include <string_view>
 #include <unistd.h>
 
+namespace prime
+{
 template<typename V, typename T>
 bool str_starts_with(V const& string, T const& arg)
 {
@@ -78,6 +80,7 @@ std::string get_first_dir_entry(V const& path)
     std::string trimmed = entry->path();
     trimmed.erase(0, path.size());
     return trimmed;
+}
 }
 
 #endif // UTILS_H

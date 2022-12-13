@@ -4,6 +4,8 @@
 #include "utils.h"
 #include <string>
 
+namespace prime
+{
 class nvidia
 {
 public:
@@ -48,5 +50,5 @@ private:
     std::string nvidia_sys_path;
     std::string nvidia_id;
 };
-
+}
 #endif // NVIDIA_H

@@ -5,6 +5,8 @@
 #include <string>
 #include <vector>
 
+namespace prime
+{
 class arg
 {
 public:
@@ -109,5 +111,5 @@ private:
     std::vector<arg> m_argv;
     bool m_has_matched{false};
 };
-
+}
 #endif // ARGVPARSE_H

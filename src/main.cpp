@@ -55,14 +55,14 @@ void run_cmd_on_dgpu(int argc, char* argv[])
 
 void print_power()
 {
-    nvidia nv = nvidia();
+    auto nv = prime::nvidia();
     nv.print_proc_power();
     nv.print_sys_control();
 }
 
 void check_devices()
 {
-    auto v = vulkan();
+    auto v = prime::vulkan();
     if (v.create_instance()) {
         auto const& vk_devices = v.get_devices();
 
@@ -78,7 +78,7 @@ void check_devices()
         std::cerr << "error: cant create a vulkan instance." << std::endl;
     }
 
-    auto gl = opengl();
+    auto gl = prime::opengl();
     auto const& gl_devices = gl.get_opengl_devices();
 
     if (!gl_devices.empty()) {
@@ -96,18 +96,18 @@ int main(int argc, char* argv[])
         exit(1);
     }
 
-    env::set_env_vars();
+    prime::set_env_vars();
 
-    if (argc >= 2 && !str_starts_with(std::string(argv[1]), "-")) {
+    if (argc >= 2 && !prime::str_starts_with(std::string(argv[1]), "-")) {
         run_cmd_on_dgpu(argc, argv);
     }
 
-    argvparse argv_parse(argc, argv);
+    auto argv_parse = prime::argvparse(argc, argv);
 
     if (argv_parse.find_argument("--help") || argv_parse.find_argument("-h")) {
         print_help();
     } else if (argv_parse.find_argument("--print-env") || argv_parse.find_argument("-e")) {
-        env::print_env_vars();
+        prime::print_env_vars();
     } else if (argv_parse.find_argument("--power") || argv_parse.find_argument("-p")) {
         print_power();
     } else if (argv_parse.find_argument("--check") || argv_parse.find_argument("-c")) {

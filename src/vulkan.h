@@ -4,6 +4,8 @@
 #include <vector>
 #include <vulkan/vulkan.h>
 
+namespace prime
+{
 class vulkan
 {
 public:
@@ -65,5 +67,6 @@ private:
     VkApplicationInfo m_app_info;
     VkInstanceCreateInfo m_create_info;
 };
+}
 
 #endif // VULKAN_H
