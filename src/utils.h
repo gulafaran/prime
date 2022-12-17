@@ -14,15 +14,13 @@
 
 namespace prime
 {
-template<typename V, typename T>
-bool str_starts_with(V const& string, T const& arg)
+extern bool str_starts_with(std::string const& string, std::string const& arg)
 {
     auto arg_view = std::string_view(string);
     return arg_view.starts_with(arg);
 }
 
-template<typename V, typename T>
-bool str_contains(V const& string1, T const& string2)
+extern bool str_contains(std::string const& string1, std::string const& string2)
 {
     if (string1.find(string2) != std::string::npos) {
         return true;
@@ -30,14 +28,12 @@ bool str_contains(V const& string1, T const& string2)
     return false;
 }
 
-template<typename V>
-bool contains_alpha(V const& string)
+extern bool contains_alpha(std::string const& string)
 {
     return std::regex_match(string, std::regex("^[A-Za-z]+$"));
 }
 
-template<typename V>
-bool file_exist(V const& path)
+extern bool file_exist(std::string const& path)
 {
     if (access(path.c_str(), F_OK) != -1) {
         return true;
@@ -46,8 +42,7 @@ bool file_exist(V const& path)
     return false;
 }
 
-template<typename V>
-void print_file(V const& file)
+extern void print_file(std::string const& file)
 {
     std::ifstream output(file);
 

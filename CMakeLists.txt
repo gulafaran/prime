@@ -5,7 +5,7 @@ project(prime LANGUAGES CXX)
 set(CMAKE_CXX_STANDARD 20)
 set(CMAKE_CXX_STANDARD_REQUIRED ON)
 
-add_executable(prime src/main.cpp src/argvparse.h src/configparse.h src/opengl.h src/nvidia.h src/utils.h src/vulkan.h src/xdgbasedir.h)
+add_executable(prime src/main.cpp src/argvparse.h src/configparse.h src/opengl.h src/nvidia.h src/utils.h src/vulkan.h)
 find_package(Vulkan REQUIRED)
 target_link_libraries(prime ${Vulkan_LIBRARIES})
 

@@ -77,7 +77,7 @@ public:
         file << "VK_ICD_FILENAMES=/usr/share/vulkan/icd.d/nvidia_icd.json" << std::endl;
         file << "__NV_PRIME_RENDER_OFFLOAD=1" << std::endl;
         file << "__NV_PRIME_RENDER_OFFLOAD_PROVIDER=NVIDIA-G0" << std::endl;
-        file << "__VK_LAYER_NV_optimus = NVIDIA_only" << std::endl;
+        file << "__VK_LAYER_NV_optimus=NVIDIA_only" << std::endl;
         file << "__GLX_VENDOR_LIBRARY_NAME=nvidia" << std::endl;
         file << "DRI_PRIME=1" << std::endl;
         file.close();
