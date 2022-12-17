@@ -5,6 +5,13 @@ tool to help run on nvidia dgpus in laptops on linux
 
 to compile this you need, vulkan, opengl, glew, glfw3.3 or higher.
 
+## Configuration
+
+prime reads ~/.config/prime/prime.cfg for setting environment variables with the syntax `envvar=value` , one var per line.
+check the prime.cfg.example or create a template with `prime -c`.
+
+you can check what environment variables will be used and set before running an application with `prime -e`.
+
 ## Usage
 
 ```bash
