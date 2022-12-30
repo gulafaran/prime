@@ -1,11 +1,11 @@
 pkgname=prime-git
-pkgver=0.0.1_r9.g4f9d56f
+pkgver=0.0.1_r11.g2034bd6
 pkgrel=1
 pkgdesc="tool to help run on nvidia dgpus in laptops on linux"
 arch=($CARCH)
 url="https://github.com/gulafaran/prime"
 
-depends=(vulkan-headers glfw glew glibc )
+depends=(vulkan-headers glfw glew glibc qt5-base)
 makedepends=(git cmake gcc)
 provides=(${pkgname%-git})
 conflicts=(${pkgname%-git})
