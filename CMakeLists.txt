@@ -64,3 +64,6 @@ add_definitions(
     ${Qt5Core_DEFINITIONS}
     ${Qt5Widgets_DEFINITIONS}
 )
+
+install(TARGETS prime DESTINATION ${CMAKE_INSTALL_PREFIX}/bin)
+install(TARGETS primeqt DESTINATION ${CMAKE_INSTALL_PREFIX}/bin)
