@@ -10,8 +10,8 @@ to compile this you need Qt5, vulkan, opengl, glew, glfw3.3 or higher.
 prime reads ~/.config/prime/prime.cfg for setting environment variables with the syntax `envvar=value` , one var per line.
 check the prime.cfg.example or create a template with the `primeqt` gui.
 
-![Screenshot](Screenshot_env.png)
-![Screenshot](Screenshot_info.png)
+<img src="Screenshot_env.png" width="300" height="400" />
+<img src="Screenshot_info.png" width="300" height="400" />
 
 ## Usage
 
