@@ -2,8 +2,7 @@
 #define OPENGL_H
 
 #include <GL/glew.h>
-#include <GLFW/glfw3.h>
-#include <iostream>
+#include <string>
 #include <vector>
 
 namespace prime
@@ -11,41 +10,15 @@ namespace prime
 class opengl_device
 {
 public:
-    opengl_device(int count)
-    {
-        m_count = count;
-    }
+    explicit opengl_device(int count);
+    ~opengl_device() = default;
 
-    int get_count()
-    {
-        return m_count;
-    }
-
-    std::string get_vendor()
-    {
-        auto vendor = glGetString(GL_VENDOR);
-
-        return std::string(reinterpret_cast<const char*>(vendor));
-    }
-
-    std::string get_renderer()
-    {
-        auto renderer = glGetString(GL_RENDERER);
-
-        return std::string(reinterpret_cast<const char*>(renderer));
-    }
-
-    std::vector<GLint> get_uuid()
-    {
-        GLint device_uuid[3];
-        std::vector<GLint> ids;
-        glGetIntegeri_v(GL_DEVICE_UUID_EXT, m_count, device_uuid);
-        for (auto i = 0; i <= 3; i++) {
-            ids.push_back(device_uuid[i]);
-        }
-
-        return ids;
-    }
+    int get_count();
+    std::string get_vendor();
+    std::string get_renderer();
+    std::string get_version();
+    std::string get_shading_version();
+    std::vector<GLint> get_uuid();
 
 private:
     int m_count;
@@ -54,39 +27,14 @@ private:
 class opengl
 {
 public:
-    opengl()
-    {
-        glfwInit();
+    opengl() = default;
+    ~opengl();
 
-        GLFWwindow* window;
-        glfwWindowHint(GLFW_VISIBLE, GL_FALSE);
-        window = glfwCreateWindow(1, 1, "", NULL, NULL);
-        glfwMakeContextCurrent(window);
-    }
-
-    ~opengl()
-    {
-        glfwTerminate();
-    }
-
-    std::vector<opengl_device> get_opengl_devices()
-    {
-        std::vector<opengl_device> devices;
-        int device_count;
-        glGetIntegerv(GL_NUM_DEVICE_UUIDS_EXT, &device_count);
-
-        if (device_count == 0) {
-            return {};
-        }
-
-        for (int i = 0; i < device_count; i++) {
-            devices.push_back({i});
-        }
-
-        return devices;
-    }
+    bool create_instance();
+    std::vector<opengl_device> get_devices();
 
 private:
+    bool m_instance_created{false};
 };
 }
 

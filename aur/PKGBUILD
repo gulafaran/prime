@@ -1,5 +1,5 @@
 pkgname=prime-git
-pkgver=_r8.ga09992d
+pkgver=0.0.1_r9.g4f9d56f
 pkgrel=1
 pkgdesc="tool to help run on nvidia dgpus in laptops on linux"
 arch=($CARCH)
