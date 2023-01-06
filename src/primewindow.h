@@ -8,6 +8,7 @@
 namespace Ui
 {
 class primewindow;
+extern char **environ;
 }
 
 class primewindow : public QMainWindow

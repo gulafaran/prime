@@ -170,7 +170,13 @@ void primewindow::run_tests()
             m_ui->output_text_edit->insertPlainText(
                 "Driver Version: " + QString::fromStdString(driver_version) + "\n");
             m_ui->output_text_edit->insertPlainText(
-                "Vulkan API Version: " + QString::fromStdString(api_version) + "\n");
+                "Vulkan API Version: " + QString::fromStdString(api_version) + "\n\n");
+        }
+    }
+
+    if (m_ui->print_all_env_checkbox->isChecked()) {
+        for(char **current = environ; *current; current++) {
+            m_ui->output_text_edit->insertPlainText(QString(*current) + "\n");
         }
     }
 }

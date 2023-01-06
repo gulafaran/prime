@@ -53,8 +53,8 @@
                <rect>
                 <x>0</x>
                 <y>0</y>
-                <width>568</width>
-                <height>917</height>
+                <width>599</width>
+                <height>687</height>
                </rect>
               </property>
               <layout class="QVBoxLayout" name="verticalLayout_13">
@@ -214,6 +214,13 @@
             <widget class="QCheckBox" name="env_var_checkbox">
              <property name="text">
               <string>Apply environment variables before running tests</string>
+             </property>
+            </widget>
+           </item>
+           <item>
+            <widget class="QCheckBox" name="print_all_env_checkbox">
+             <property name="text">
+              <string>Print all set environment variables</string>
              </property>
             </widget>
            </item>
